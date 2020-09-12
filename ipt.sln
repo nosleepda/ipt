@@ -4,6 +4,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "one", "one\one.fsproj", "{3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicLibrary", "GraphicLibrary\GraphicLibrary.csproj", "{0211DEA8-7309-449F-8AD8-48A61E4E4096}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DescriptiveStatistics", "DescriptiveStatistics\DescriptiveStatistics.fsproj", "{F43D04DA-D44F-4C44-9189-9A75581CA57B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{0211DEA8-7309-449F-8AD8-48A61E4E4096}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0211DEA8-7309-449F-8AD8-48A61E4E4096}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0211DEA8-7309-449F-8AD8-48A61E4E4096}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F43D04DA-D44F-4C44-9189-9A75581CA57B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F43D04DA-D44F-4C44-9189-9A75581CA57B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F43D04DA-D44F-4C44-9189-9A75581CA57B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F43D04DA-D44F-4C44-9189-9A75581CA57B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
