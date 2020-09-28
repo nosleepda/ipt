@@ -1,11 +1,11 @@
 ﻿namespace DescriptiveStatistics
 
-open System
 open System.Collections.Generic
 open GraphicLibrary
 open MathNet.Numerics.Distributions
 
 module Statistics =
+    //todo add init function
     let sourceData =
         List<double>[28.0; 30.0; 28.0; 27.0; 28.0; 29.0; 29.0; 29.0; 31.0; 28.0; 26.0; 25.0; 33.0;
 35.0; 27.0; 31.0; 31.0; 30.0; 28.0; 33.0; 23.0; 30.0; 31.0; 33.0; 31.0; 27.0;
@@ -19,11 +19,6 @@ module Statistics =
 //0.89;0.88;0.78;0.81;0.85;0.88;0.94;0.86;0.80;0.86;0.91;0.78;0.86;
 //0.91;0.95;0.97;0.88;0.79;0.82;0.84;0.90;0.81;0.87;0.91;0.90;0.82;
 //0.85;0.90;0.82;0.85;0.90;0.96;0.98;0.89;0.87;0.99;0.85;]
-
-
-//    let initData data =
-//        sourceData.Clear |> ignore
-//        sourceData.AddRange data
 
     let series = List<double>()
 

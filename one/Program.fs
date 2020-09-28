@@ -13,9 +13,6 @@ let data = List<double>[28.0; 30.0; 28.0; 27.0; 28.0; 29.0; 29.0; 29.0; 31.0; 28
 
 [<EntryPoint>]
 let main argv =
-    printfn "Hello World from F#! "
-    //Statistics.initData data
-    //Statistics.sortedData |> printfn "%A"
     Statistics.mode |> printfn "mode %f"
     Statistics.m3 |> printfn "m3 %f"
     Statistics.initElem |> printfn "initElem %f"
@@ -27,11 +24,9 @@ let main argv =
     Statistics.expectedValueGroup |> printfn "mxG %f"
     Statistics.varianceGroup |> printfn "dxG %f"
     Statistics.standardDeviationGroup |> printfn "sG %f"
-    Statistics.chi (1.0 - 0.95) |> printfn "chi1 %f"
-    Statistics.chi (1.0 + 0.95) |> printfn "chi2 %f"
     Statistics.confidenceIntervalDx 0.95 ||> printfn "chi %f < s < %f"
     Statistics.confidenceIntervalMx 0.05 ||> printfn "CI %f < m < %f"
-    Statistics.nNoGroup |> printfn "n %i\n interval \n"
+    Statistics.nNoGroup |> printfn "n %i\n interval"
     
     Statistics.interval |> List.iter (printf "%1.6f ")
     printfn "" |> ignore
@@ -44,9 +39,8 @@ let main argv =
     Statistics.discrete |> List.iter (printf "%1.2f ")
     printfn "" |> ignore
     Statistics.frequenciesDiscrete |> List.ofSeq |> List.iter (printf "  %2i ")
+    printfn "" |> ignore
     Statistics.frequenciesDiscrete |> List.ofSeq |> List.sum |> (printf "sum %i ")
     printfn "" |> ignore
-//    Statistics.drawFrequencyPolygon2 |> ignore
     
-    
-    0 // return an integer exit code
+    0
