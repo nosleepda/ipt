@@ -17,6 +17,7 @@ let main argv =
     //Statistics.initData data
     //Statistics.sortedData |> printfn "%A"
     Statistics.mode |> printfn "mode %f"
+    Statistics.m3 |> printfn "m3 %f"
     Statistics.initElem |> printfn "initElem %f"
     Statistics.lastElem |> printfn "lastElem %f"
     Statistics.median |> printfn "median %f"
@@ -24,11 +25,12 @@ let main argv =
     Statistics.kurtosis|> printfn "kurtosis %f"
     Statistics.coefficientVariation |> printfn "cv %f"
     Statistics.expectedValueGroup |> printfn "mxG %f"
-    Statistics.expectedValueNoGroup |> printfn "mxNG %f"
     Statistics.varianceGroup |> printfn "dxG %f"
-    Statistics.varianceNoGroup |> printfn "dxNG %f"
     Statistics.standardDeviationGroup |> printfn "sG %f"
-    Statistics.standardDeviationNoGroup |> printfn "sNG %f"
+    Statistics.chi (1.0 - 0.95) |> printfn "chi1 %f"
+    Statistics.chi (1.0 + 0.95) |> printfn "chi2 %f"
+    Statistics.confidenceIntervalDx 0.95 ||> printfn "chi %f < s < %f"
+    Statistics.confidenceIntervalMx 0.05 ||> printfn "CI %f < m < %f"
     Statistics.nNoGroup |> printfn "n %i\n interval \n"
     
     Statistics.interval |> List.iter (printf "%1.6f ")

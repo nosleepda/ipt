@@ -3,22 +3,22 @@
 open System
 open System.Collections.Generic
 open GraphicLibrary
+open MathNet.Numerics.Distributions
 
 module Statistics =
-//    let sourceData =
-//        List<double>[28.0; 30.0; 28.0; 27.0; 28.0; 29.0; 29.0; 29.0; 31.0; 28.0; 26.0; 25.0; 33.0;
-//35.0; 27.0; 31.0; 31.0; 30.0; 28.0; 33.0; 23.0; 30.0; 31.0; 33.0; 31.0; 27.0;
-//30.0; 28.0; 30.0; 29.0; 30.0; 26.0; 25.0; 31.0; 33.0; 26.0; 27.0; 33.0; 29.0;
-//30.0; 30.0; 36.0; 26.0; 25.0; 28.0; 30.0; 29.0; 27.0; 32.0; 29.0; 31.0; 30.0;
-//31.0; 26.0; 25.0; 29.0; 31.0; 33.0; 27.0; 32.0; 30.0; 31.0; 34.0; 28.0; 26.0;
-//38.0; 29.0; 31.0; 29.0; 27.0; 31.0; 30.0; 28.0; 34.0; 30.0; 26.0; 30.0; 32.0;
-//30.0; 29.0; 30.0; 28.0; 32.0; 30.0; 29.0; 34.0; 32.0; 35.0; 29.0; 27.0; 28.0;
-//30.0; 30.0; 29.0; 32.0; 29.0; 34.0; 30.0; 32.0; 24.0;]
     let sourceData =
-        List<double>[0.90;0.79;0.84;0.86;0.88;0.90;0.89;0.85;0.91;0.98;0.91;0.80;0.87;
-0.89;0.88;0.78;0.81;0.85;0.88;0.94;0.86;0.80;0.86;0.91;0.78;0.86;
-0.91;0.95;0.97;0.88;0.79;0.82;0.84;0.90;0.81;0.87;0.91;0.90;0.82;
-0.85;0.90;0.82;0.85;0.90;0.96;0.98;0.89;0.87;0.99;0.85;]
+        List<double>[28.0; 30.0; 28.0; 27.0; 28.0; 29.0; 29.0; 29.0; 31.0; 28.0; 26.0; 25.0; 33.0;
+35.0; 27.0; 31.0; 31.0; 30.0; 28.0; 33.0; 23.0; 30.0; 31.0; 33.0; 31.0; 27.0;
+30.0; 28.0; 30.0; 29.0; 30.0; 26.0; 25.0; 31.0; 33.0; 26.0; 27.0; 33.0; 29.0;
+30.0; 30.0; 36.0; 26.0; 25.0; 28.0; 30.0; 29.0; 27.0; 32.0; 29.0; 31.0; 30.0;
+31.0; 26.0; 25.0; 29.0; 31.0; 33.0; 27.0; 32.0; 30.0; 31.0; 34.0; 28.0; 26.0;
+38.0; 29.0; 31.0; 29.0; 27.0; 31.0; 30.0; 28.0; 34.0; 30.0; 26.0; 30.0; 32.0;
+30.0; 29.0; 30.0; 28.0; 32.0; 30.0; 29.0; 34.0; 32.0; 35.0; 29.0; 27.0; 28.0;
+30.0; 30.0; 29.0; 32.0; 29.0; 34.0; 30.0; 32.0; 24.0;]
+//        List<double>[0.90;0.79;0.84;0.86;0.88;0.90;0.89;0.85;0.91;0.98;0.91;0.80;0.87;
+//0.89;0.88;0.78;0.81;0.85;0.88;0.94;0.86;0.80;0.86;0.91;0.78;0.86;
+//0.91;0.95;0.97;0.88;0.79;0.82;0.84;0.90;0.81;0.87;0.91;0.90;0.82;
+//0.85;0.90;0.82;0.85;0.90;0.96;0.98;0.89;0.87;0.99;0.85;]
 
 
 //    let initData data =
@@ -34,12 +34,12 @@ module Statistics =
 
     let k =
         sortedData.Length
-        |> Convert.ToDouble
+        |> double
         |> sqrt
     
     let kRounded =
         sortedData.Length
-        |> Convert.ToDouble
+        |> double
         |> sqrt
         |> round
 
@@ -77,17 +77,6 @@ module Statistics =
     let frequenciesDiscrete =
         frequenciesInterval |> List.ofSeq |> List.tail |> List<int>
         
-//        let mutable data = List<double> sortedData
-//
-//        let frequencies =
-//            List<int>(List.init (discrete.Length) (fun _ -> 0))
-//
-//        for i = 0 to discrete.Length - 1 do
-//            while (data.Count > 0 && data.[0] <= discrete.[i]) do
-//                frequencies.[i] <- frequencies.[i] + 1
-//                data.RemoveAt(0)
-//        frequencies
-
     let nGroup = discrete.Length
 
     let nNoGroup = sortedData.Length
@@ -116,33 +105,19 @@ module Statistics =
     let expectedValueGroup =
         let mutable sum = 0.0
         for x in dictDa do
-            sum <- sum + x.Key * Convert.ToDouble x.Value
+            sum <- sum + x.Key * double x.Value
 
-        sum / Convert.ToDouble nNoGroup
-
-    let expectedValueNoGroup =
-        (List.sum sortedData) / Convert.ToDouble nNoGroup
+        sum / double nNoGroup
 
     let varianceGroup =
         let mutable sum = 0.0
         for x in dictDa do
-            sum <- sum + (x.Key ** 2.0) * (Convert.ToDouble x.Value)
+            sum <- sum + ((expectedValueGroup - x.Key) ** 2.0) * (double x.Value)
 
-        sum <- sum / Convert.ToDouble(if nNoGroup > 50 then nNoGroup - 1 else nNoGroup)
-        sum - (expectedValueGroup ** 2.0)
-
-    let varianceNoGroup =
-        let mutable sum =
-            (sortedData
-             |> List.map (fun x -> x ** 2.0)
-             |> List.sum)
-
-        sum <- sum / Convert.ToDouble(if nNoGroup > 50 then nNoGroup - 1 else nNoGroup)
-        sum - expectedValueNoGroup ** 2.0
+        sum <- sum / double (if nNoGroup > 50 then nNoGroup - 1 else nNoGroup)
+        sum
 
     let standardDeviationGroup = sqrt varianceGroup
-
-    let standardDeviationNoGroup = sqrt varianceNoGroup
 
     let coefficientVariation =
         standardDeviationGroup / expectedValueGroup
@@ -150,25 +125,40 @@ module Statistics =
     let m3 =
         let mutable sum = 0.0
         for x in dictDa do
-            sum <- sum + ((x.Key - expectedValueGroup) ** 3.0) * Convert.ToDouble x.Value
-//        sum <- sum - expectedValueGroup ** 3.0
-        sum <- sum / Convert.ToDouble nNoGroup
+            sum <- sum + ((x.Key - expectedValueGroup) ** 3.0) * (double x.Value)
+            
+        sum <- sum / double nNoGroup
         sum
         
 
-    let skewness = m3 / (standardDeviationGroup ** 3.0)
+    let skewness =
+        m3 / (standardDeviationGroup ** 3.0)
 
     let m4 =
         let mutable sum = 0.0
         for x in dictDa do
-            sum <- sum + (x.Key ** 4.0) * Convert.ToDouble x.Value
+            sum <- sum + (double (double x.Key - double expectedValueGroup) ** 4.0) * (double x.Value)
 
-        sum <- sum / Convert.ToDouble nNoGroup
-        sum - expectedValueGroup ** 4.0
+        sum <- sum / double nNoGroup
+        sum
 
     let kurtosis =
         m4 / (standardDeviationGroup ** 4.0) - 3.0
+        
+    let t y =
+        StudentT.InvCDF(0.0, 1.0, nNoGroup - 1 |> double, 1.0 - y/2.0)
+    
+    let confidenceIntervalMx y =
+        let temp = t y * standardDeviationGroup / (sqrt (double nNoGroup))
+        (expectedValueGroup - temp, expectedValueGroup + temp)
 
+    let chi y =
+        ChiSquared.InvCDF(nNoGroup - 1 |> double, y/2.0)
+    
+    let confidenceIntervalDx y =
+        let temp = varianceGroup * (double nNoGroup - 1.0) 
+        (sqrt (temp / chi (1.0 + y)), sqrt(temp / chi (1.0 - y)))
+    
     let emper x =
         let mutable sum = 0
         for elem in dictDa do
@@ -178,7 +168,7 @@ module Statistics =
     let ws =
         frequenciesDiscrete
         |> List.ofSeq
-        |> List.map (fun x -> Convert.ToDouble x / Convert.ToDouble nNoGroup)
+        |> List.map (fun x -> double x / double nNoGroup)
 
     let WSS =
         let da = List<float>(ws.Length)
@@ -189,24 +179,24 @@ module Statistics =
 
     let drawFrequencyPolygon =
         let graphs = Graphic("Frequency Polygons", "", "")
-        graphs.SetPlane(0, frequenciesDiscrete.Count + 1, 0, 2, 0, (frequenciesDiscrete |> Seq.max |> Convert.ToInt32) + 2, 0, 4)
+        graphs.SetPlane(0, frequenciesDiscrete.Count + 1, 0, 2, 0, (frequenciesDiscrete |> Seq.max |> int) + 2, 0, 4)
         graphs.DrawFrequencyPolygon(frequenciesDiscrete |> Array.ofSeq, true, "green")
         0
 
     let drawHistogram =
         let graphs = Graphic("Histogram", "", "")
-        graphs.SetPlane(0, frequenciesDiscrete.Count + 1, 0, 2, 0, (frequenciesDiscrete |> Seq.max |> Convert.ToInt32) + 2, 0, 4)
+        graphs.SetPlane(0, frequenciesDiscrete.Count + 1, 0, 2, 0, (frequenciesDiscrete |> Seq.max |> int) + 2, 0, 4)
         graphs.DrawBarsGraph(frequenciesDiscrete |> Array.ofSeq)
         0
 
     let drawFrequencyPolygon2 =
         let graphs = Graphic("Frequency Polygons", "", "")
-        graphs.SetPlane(0, ws.Length + 1, 0, 2, 0, (ws |> Seq.max |> Convert.ToInt32) + 2, 0, 4)
+        graphs.SetPlane(0, ws.Length + 1, 0, 2, 0, (ws |> Seq.max |> int) + 2, 0, 4)
         graphs.DrawFrequencyPolygon(WSS |> Array.ofSeq)
         0
 
     let drawHistograms =
         let graphs = Graphic("Histogram", "", "")
-        graphs.SetPlane(0.0, Convert.ToDouble(ws.Length + 1), 0.0, 1.3, 0.0, 2.0, 0.0, 0.3)
+        graphs.SetPlane(0.0, double(ws.Length + 1), 0.0, 1.3, 0.0, 2.0, 0.0, 0.3)
         graphs.DrawBarsGraph(WSS |> Array.ofSeq)
         0
