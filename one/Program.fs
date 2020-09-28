@@ -1,37 +1,50 @@
 ﻿open System.Collections.Generic
 open DescriptiveStatistics
 
-let data = List<double>[0.3;0.4;0.8;1.2;1.4;1.9;0.7;1.3;1.0;0.5;0.9;1.2;1.0;
-1.3;0.6;1.0;1.0;1.1;0.5;1.2;1.0;1.4;1.6;0.5;1.1; 1.1;
-1.8;0.3;0.6;1.1;0.8;1.2;0.9;1.4;1.3;1.6;1.5;0.8;
-0.7;0.9;1.5;1.3;1.1;1.2;1.8;1.1;1.0;1.2;0.9;1.5;1.3;
-1.1;1.2;1.3]
+let data = List<double>[28.0; 30.0; 28.0; 27.0; 28.0; 29.0; 29.0; 29.0; 31.0; 28.0; 26.0; 25.0; 33.0;
+35.0; 27.0; 31.0; 31.0; 30.0; 28.0; 33.0; 23.0; 30.0; 31.0; 33.0; 31.0; 27.0;
+30.0; 28.0; 30.0; 29.0; 30.0; 26.0; 25.0; 31.0; 33.0; 26.0; 27.0; 33.0; 29.0;
+30.0; 30.0; 36.0; 26.0; 25.0; 28.0; 30.0; 29.0; 27.0; 32.0; 29.0; 31.0; 30.0;
+31.0; 26.0; 25.0; 29.0; 31.0; 33.0; 27.0; 32.0; 30.0; 31.0; 34.0; 28.0; 26.0;
+38.0; 29.0; 31.0; 29.0; 27.0; 31.0; 30.0; 28.0; 34.0; 30.0; 26.0; 30.0; 32.0;
+30.0; 29.0; 30.0; 28.0; 32.0; 30.0; 29.0; 34.0; 32.0; 35.0; 29.0; 27.0; 28.0;
+30.0; 30.0; 29.0; 32.0; 29.0; 34.0; 30.0; 32.0; 24.0;
+]
 
 [<EntryPoint>]
 let main argv =
     printfn "Hello World from F#! "
-    Statistics.initData data
-//    Statistics.sortedData |> printfn "%A"
-//    Statistics.mode |> printfn "%f"
-    Statistics.varianceGroup |> printfn "%f"
-    Statistics.varianceNoGroup |> printfn "%f"
-    Statistics.standardDeviationGroup |> printfn "%f"
-    Statistics.standardDeviationNoGroup |> printfn "%f"
-    Statistics.drawFrequencyPolygon2 |> ignore
-//    Statistics.k |> printfn "%f"
-//    Statistics.h |> printfn "%f"
-//    Statistics.initElem |> printfn "%f"
-//    Statistics.lastElem |> printfn "%f"
-//    Statistics.sortedData.Length |> printfn "%i"
-//    Statistics.interval |> List.iter (printf "%1.2f ")
-//    printfn "" |> ignore
-//    Statistics.frequencies |> List.ofSeq |> List.iter (printf "  %2i ")
-//    printfn "\n----------------------------------------------" |> ignore
-//    Statistics.discrete |> List.iter (printf "%1.2f ")
-//    printfn "" |> ignore
-    Statistics.frequencies |> List.ofSeq |> List.iter (printf "  %2i ")
-//    
-//    Statistics.frequencies |> Seq.sum |> printfn "\n %i"
-    //Statistics.calcFreq
+    //Statistics.initData data
+    //Statistics.sortedData |> printfn "%A"
+    Statistics.mode |> printfn "mode %f"
+    Statistics.initElem |> printfn "initElem %f"
+    Statistics.lastElem |> printfn "lastElem %f"
+    Statistics.median |> printfn "median %f"
+    Statistics.skewness |> printfn "skewness %f"
+    Statistics.kurtosis|> printfn "kurtosis %f"
+    Statistics.coefficientVariation |> printfn "cv %f"
+    Statistics.expectedValueGroup |> printfn "mxG %f"
+    Statistics.expectedValueNoGroup |> printfn "mxNG %f"
+    Statistics.varianceGroup |> printfn "dxG %f"
+    Statistics.varianceNoGroup |> printfn "dxNG %f"
+    Statistics.standardDeviationGroup |> printfn "sG %f"
+    Statistics.standardDeviationNoGroup |> printfn "sNG %f"
+    Statistics.nNoGroup |> printfn "n %i\n interval \n"
+    
+    Statistics.interval |> List.iter (printf "%1.6f ")
+    printfn "" |> ignore
+    Statistics.frequenciesInterval |> List.ofSeq |> List.iter (printf "%i ")
+    printfn "" |> ignore
+    
+    Statistics.frequenciesInterval |> List.ofSeq |> List.sum |> (printf "sum %i ")
+    printfn "" |> ignore
+    
+    Statistics.discrete |> List.iter (printf "%1.2f ")
+    printfn "" |> ignore
+    Statistics.frequenciesDiscrete |> List.ofSeq |> List.iter (printf "  %2i ")
+    Statistics.frequenciesDiscrete |> List.ofSeq |> List.sum |> (printf "sum %i ")
+    printfn "" |> ignore
+//    Statistics.drawFrequencyPolygon2 |> ignore
+    
     
     0 // return an integer exit code

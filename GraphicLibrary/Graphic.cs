@@ -10,7 +10,7 @@ namespace GraphicLibrary
 
         public Graphic(string title, string xAxis, string yAxis, string output = "xwin")
         {
-            dislin.metafl(output);
+            dislin.metafl("xwin");
             dislin.disini();
             dislin.titlin(title, 3);
             dislin.name(xAxis, "X");
