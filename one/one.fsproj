@@ -14,4 +14,8 @@
       <ProjectReference Include="..\GraphicLibrary\GraphicLibrary.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="XPlot.Plotly" Version="3.0.1" />
+    </ItemGroup>
+
 </Project>

@@ -97,61 +97,61 @@ module Statistics =
             m <- sortedData.Item(kk + 1)
         m
 
-    let expectedValueGroup =
+    let mean =
         let mutable sum = 0.0
         for x in dictDa do
             sum <- sum + x.Key * double x.Value
 
         sum / double nNoGroup
 
-    let varianceGroup =
+    let variance =
         let mutable sum = 0.0
         for x in dictDa do
-            sum <- sum + ((expectedValueGroup - x.Key) ** 2.0) * (double x.Value)
+            sum <- sum + ((mean - x.Key) ** 2.0) * (double x.Value)
 
         sum <- sum / double (if nNoGroup > 50 then nNoGroup - 1 else nNoGroup)
         sum
 
-    let standardDeviationGroup = sqrt varianceGroup
+    let standardDeviation = sqrt variance
 
     let coefficientVariation =
-        standardDeviationGroup / expectedValueGroup
+        standardDeviation / mean
 
     let m3 =
         let mutable sum = 0.0
         for x in dictDa do
-            sum <- sum + ((x.Key - expectedValueGroup) ** 3.0) * (double x.Value)
+            sum <- sum + ((x.Key - mean) ** 3.0) * (double x.Value)
             
         sum <- sum / double nNoGroup
         sum
         
 
     let skewness =
-        m3 / (standardDeviationGroup ** 3.0)
+        m3 / (standardDeviation ** 3.0)
 
     let m4 =
         let mutable sum = 0.0
         for x in dictDa do
-            sum <- sum + (double (double x.Key - double expectedValueGroup) ** 4.0) * (double x.Value)
+            sum <- sum + (double (double x.Key - double mean) ** 4.0) * (double x.Value)
 
         sum <- sum / double nNoGroup
         sum
 
     let kurtosis =
-        m4 / (standardDeviationGroup ** 4.0) - 3.0
+        m4 / (standardDeviation ** 4.0) - 3.0
         
     let t y =
         StudentT.InvCDF(0.0, 1.0, nNoGroup - 1 |> double, 1.0 - y/2.0)
     
-    let confidenceIntervalMx y =
-        let temp = t y * standardDeviationGroup / (sqrt (double nNoGroup))
-        (expectedValueGroup - temp, expectedValueGroup + temp)
+    let confidenceIntervalMean y =
+        let temp = t y * standardDeviation / (sqrt (double nNoGroup))
+        (mean - temp, mean + temp)
 
     let chi y =
         ChiSquared.InvCDF(nNoGroup - 1 |> double, y/2.0)
     
-    let confidenceIntervalDx y =
-        let temp = varianceGroup * (double nNoGroup - 1.0) 
+    let confidenceIntervalVariance y =
+        let temp = variance * (double nNoGroup - 1.0) 
         (sqrt (temp / chi (1.0 + y)), sqrt(temp / chi (1.0 - y)))
     
     let emper x =
