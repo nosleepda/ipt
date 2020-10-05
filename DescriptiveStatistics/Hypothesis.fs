@@ -7,8 +7,15 @@ open MathNet.Numerics.Distributions
 
 module Hypothesis =
     
-//    let discreteShort =
-        
+    let frequenciesDiscreteShort =
+        let result = List<int>()
+        let mutable temp = 0
+        for i = 0 to Statistics.frequenciesDiscrete.Count - 1 do
+            temp <- temp + Statistics.frequenciesDiscrete.[i]
+            if temp > 5 then
+                result.Add temp
+                temp <- 0
+        List.ofSeq result
     
     let frequenciesDiscreteExp =
         let us = List.map (fun elem -> (elem - Statistics.mean) / Statistics.standardDeviation) Statistics.discrete
@@ -20,6 +27,7 @@ module Hypothesis =
                      |> List.map (fun elem -> Math.Round elem)
                      |> List.map (fun elem -> int elem)
                      |> List<int>
+                     
         result.[result.Count - 1] <- result.[result.Count - 1] + 1
         List.ofSeq result
         
@@ -29,17 +37,20 @@ module Hypothesis =
     
     let freedom = (frequenciesDiscreteExp.Length - 2 - 1) |> double
     
-    let chiSquaredV =
-            List.map2 (fun n n' -> (n - n') ** 2.0 / n') frequenciesDiscreteDouble frequenciesDiscreteExpDouble
-            |> List.sum
+    let chiSquaredShort =
+        abs (Normal.CDF(Statistics.mean, Statistics.standardDeviation,-5.0) - Normal.CDF(Statistics.mean, Statistics.standardDeviation,0.825))
+    
+    let chiSquaredFull =
+        List.map2 (fun n n' -> (n - n') ** 2.0 / n') frequenciesDiscreteDouble frequenciesDiscreteExpDouble
+        |> List.sum
         
     let chiSquared a =
         let chiSquaredCritical = ChiSquared.InvCDF(freedom, a) 
         
         let bool =
-            if (chiSquaredV >= chiSquaredCritical) then "не " else ""
+            if (chiSquaredFull >= chiSquaredCritical) then "не " else ""
             
-        String.Format("Условия критерия Пирсона {0} {1} < {2} ", bool + "выполняются", chiSquaredV, chiSquaredCritical)
+        String.Format("Условие критерия Пирсона {0} {1} < {2} ", bool + "выполняется", chiSquaredFull, chiSquaredCritical)
     
     let kolmogorov a =
         let cumulative (list:list<int>) =
@@ -60,13 +71,13 @@ module Hypothesis =
         let k = max / sqrt (double Statistics.nNoGroup) |> funcK
         let bool =
             if (k <= a) then "не " else ""
-        String.Format("Условия критерия Колмогорова {0} {1} < 3 ", bool + "выполняются", k)
+        String.Format("Условие критерия Колмогорова {0} {1} < 3 ", bool + "выполняется", k)
        
     let romanovsky =
-        let r = abs (chiSquaredV - freedom) / sqrt (2.0 * freedom)
+        let r = abs (chiSquaredFull - freedom) / sqrt (2.0 * freedom)
         let bool =
             if (r > 3.0) then "не " else ""
-        String.Format("Условия критерия Романовского {0} {1} < 3 ", bool + "выполняются", r)
+        String.Format("Условие критерия Романовского {0} {1} < 3 ", bool + "выполняется", r)
         
     let yastremsky =
         let ss = List.map2 (fun elem1 elem2 -> (elem1 - elem2) ** 2.0) frequenciesDiscreteDouble frequenciesDiscreteExpDouble
@@ -82,7 +93,7 @@ module Hypothesis =
         
         let bool =
             if (j > 3.0) then "не " else ""
-        String.Format("Условия критерия Ястремского {0} {1} <= 3 ", bool + "выполняются", j)
+        String.Format("Условие критерия Ястремского {0} {1} <= 3 ", bool + "выполняется", j)
     
     let approximate a =
         let n = double Statistics.nNoGroup
@@ -97,7 +108,7 @@ module Hypothesis =
         let bool2 =
             if bool1 && (chi < chiCritical) then "" else "не"
             
-        String.Format("Условия приближенного критерия {0} {1} < {2} ", bool2 + "выполняются", chi, chiCritical)
+        String.Format("Условие приближенного критерия {0} {1} < {2} ", bool2 + "выполняется", chi, chiCritical)
 
     let drawFrequencyPolygon =
         let graphs = Graphic("Frequency Polygons", "", "")

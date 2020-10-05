@@ -57,21 +57,12 @@ let main argv =
 //    Statistics.frequenciesDiscrete |> List.ofSeq |> List.sum |> (printf "sum %i ")
 //    printfn "" |> ignore
 //
-    Hypothesis.frequenciesDiscreteExp |> List.iter (printf "  %2i ")
-    printfn "" |> ignore
-    Hypothesis.frequenciesDiscreteDouble |> List.iter (printf "  %f ")
-    printfn "" |> ignore
-    Hypothesis.frequenciesDiscreteExpDouble |> List.iter (printf "  %f ")
-    Statistics.skewness |> printfn "skewness %f"
-    Statistics.kurtosis|> printfn "kurtosis %f"
+    
     Hypothesis.chiSquared 0.95 |> printfn "%s"
     Hypothesis.kolmogorov 0.05 |> printfn "%s"
     Hypothesis.romanovsky |> printfn "%s" 
     Hypothesis.yastremsky |> printfn "%s"
     Hypothesis.approximate 0.95 |> printfn "%s"
-    
-    
-    
     
     printfn "" |> ignore
 //    
