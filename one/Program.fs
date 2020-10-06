@@ -58,6 +58,18 @@ let main argv =
 //    printfn "" |> ignore
 //
     
+//    Hypothesis.intervalShort |> List.ofSeq |> List.iter (printf "%f ")
+//    printfn "" |> ignore
+//    Hypothesis.frequenciesDiscreteShort |> List.ofSeq |> List.iter (printf "%i ")
+//    printfn "" |> ignore
+//    Hypothesis.ps |> List.ofSeq |> List.iter (printf "%f ")
+//    printfn "" |> ignore
+    
+    
+    Hypothesis.frequenciesDiscreteDouble |> List.ofSeq |> List.iter (printf "%f ")
+    printfn "" |> ignore
+    Hypothesis.isShort.IsSome |> (printf "sss %A ")
+    printfn "" |> ignore
     Hypothesis.chiSquared 0.95 |> printfn "%s"
     Hypothesis.kolmogorov 0.05 |> printfn "%s"
     Hypothesis.romanovsky |> printfn "%s" 

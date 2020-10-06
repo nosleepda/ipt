@@ -17,6 +17,17 @@ module Hypothesis =
                 temp <- 0
         List.ofSeq result
     
+    let intervalShort =
+        let interval = Statistics.interval
+        let freq = Statistics.frequenciesInterval
+        let result = List<double>[Double.MinValue]
+        for i = 1 to Statistics.frequenciesInterval.Count - 1 do
+            if freq.[i] > 5 then
+                result.Add interval.[i]
+
+        result.Add Double.MaxValue
+        List.ofSeq result
+    
     let frequenciesDiscreteExp =
         let us = List.map (fun elem -> (elem - Statistics.mean) / Statistics.standardDeviation) Statistics.discrete
         let value1 = 1.0 / sqrt (2.0 * Math.PI)
@@ -31,26 +42,44 @@ module Hypothesis =
         result.[result.Count - 1] <- result.[result.Count - 1] + 1
         List.ofSeq result
         
+    let isShort =
+       List.ofSeq Statistics.frequenciesDiscrete
+       |> List.tryFind (fun x -> x < 0)
+    
     let frequenciesDiscreteDouble = List.ofSeq Statistics.frequenciesDiscrete |> List.map (fun elem -> double elem)
     
     let frequenciesDiscreteExpDouble = List.map (fun elem -> double elem) frequenciesDiscreteExp
+    let frequenciesDiscreteShortDouble = List.map (fun elem -> double elem) frequenciesDiscreteShort
     
     let freedom = (frequenciesDiscreteExp.Length - 2 - 1) |> double
     
+    let freedomShort = (frequenciesDiscreteShort.Length - 2 - 1) |> double
+    
+    let ps =
+        let p a b = abs (Normal.CDF(Statistics.mean, Statistics.standardDeviation, a) - Normal.CDF(Statistics.mean, Statistics.standardDeviation,b))
+        let result = List<double>()
+        for i = 1 to intervalShort.Length - 1 do
+            result.Add (p intervalShort.[i-1] intervalShort.[i])
+        List.ofSeq result
+        
     let chiSquaredShort =
-        abs (Normal.CDF(Statistics.mean, Statistics.standardDeviation,-5.0) - Normal.CDF(Statistics.mean, Statistics.standardDeviation,0.825))
+        List.map (fun elem -> elem * double Statistics.nNoGroup) ps
+        |> List.map2 (fun elem1 elem2 -> (elem1 - elem2) ** 2.0 / elem2) frequenciesDiscreteShortDouble
+        |> List.sum
     
     let chiSquaredFull =
         List.map2 (fun n n' -> (n - n') ** 2.0 / n') frequenciesDiscreteDouble frequenciesDiscreteExpDouble
         |> List.sum
         
     let chiSquared a =
-        let chiSquaredCritical = ChiSquared.InvCDF(freedom, a) 
+        let f = if isShort.IsSome then freedomShort  else freedom
+        let cs = if isShort.IsSome then chiSquaredShort else chiSquaredFull
+        let chiSquaredCritical = ChiSquared.InvCDF(f, a) 
         
         let bool =
-            if (chiSquaredFull >= chiSquaredCritical) then "не " else ""
+            if (cs >= chiSquaredCritical) then "не " else ""
             
-        String.Format("Условие критерия Пирсона {0} {1} < {2} ", bool + "выполняется", chiSquaredFull, chiSquaredCritical)
+        String.Format("Условие критерия Пирсона {0} {1} < {2} ", bool + "выполняется", cs, chiSquaredCritical)
     
     let kolmogorov a =
         let cumulative (list:list<int>) =
@@ -74,22 +103,31 @@ module Hypothesis =
         String.Format("Условие критерия Колмогорова {0} {1} < 3 ", bool + "выполняется", k)
        
     let romanovsky =
-        let r = abs (chiSquaredFull - freedom) / sqrt (2.0 * freedom)
+        let f = if isShort.IsSome then freedomShort  else freedom
+        let cs = if isShort.IsSome then chiSquaredShort else chiSquaredFull
+        
+        let r = abs (cs - f) / sqrt (2.0 * f)
         let bool =
             if (r > 3.0) then "не " else ""
         String.Format("Условие критерия Романовского {0} {1} < 3 ", bool + "выполняется", r)
         
     let yastremsky =
+        let cs = List.map (fun elem -> elem * double Statistics.nNoGroup) ps
+                |> List.map2 (fun elem1 elem2 -> (elem1 - elem2) ** 2.0 / (elem2 * (1.0 - elem2 / double Statistics.nNoGroup))) frequenciesDiscreteShortDouble
+                |> List.sum
+        
         let ss = List.map2 (fun elem1 elem2 -> (elem1 - elem2) ** 2.0) frequenciesDiscreteDouble frequenciesDiscreteExpDouble
         
-        let c = List.map (fun elem -> elem / double Statistics.nNoGroup) frequenciesDiscreteExpDouble
+        let cf = List.map (fun elem -> elem / double Statistics.nNoGroup) frequenciesDiscreteExpDouble
                 |> List.map (fun elem -> 1.0 - elem)
                 |> List.map2 (fun elem1 elem2 -> elem1 * elem2) frequenciesDiscreteExpDouble
                 |> List.map2 (fun elem1 elem2 -> (elem1 / elem2)) ss
                 |> List.sum
         
+        let k =  if isShort.IsSome then frequenciesDiscreteShort.Length else frequenciesDiscreteExp.Length 
+        let c = if isShort.IsSome then cs else cf
         let t = 0.6       
-        let j = abs (c - double frequenciesDiscreteExp.Length) / sqrt (2.0 * double frequenciesDiscreteExp.Length + 4.0 * t)
+        let j = abs (c - double k) / sqrt (2.0 * double k + 4.0 * t)
         
         let bool =
             if (j > 3.0) then "не " else ""
