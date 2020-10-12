@@ -102,8 +102,14 @@ namespace GraphicLibrary
             DrawBarsGraph(Array.ConvertAll(y, ConverterFloat), color);
         }
 
-        public void DrawGraph()
+        public void DrawGraph(bool isMark = true)
         {
+            if (isMark)
+            {
+                dislin.marker(16);
+                dislin.incmrk(1); 
+            }
+            
             foreach (var graph in _graphList)
             {
                 dislin.color(graph.Color);
