@@ -12,20 +12,31 @@ module Hypothesis =
         let mutable temp = 0
         for i = 0 to Statistics.frequenciesDiscrete.Count - 1 do
             temp <- temp + Statistics.frequenciesDiscrete.[i]
-            if temp > 5 then
+            if temp >= 5 then
                 result.Add temp
                 temp <- 0
+        if temp <> 0 then
+            result.[result.Count - 1] <- result.[result.Count - 1] + temp
         List.ofSeq result
     
     let intervalShort =
         let interval = Statistics.interval
         let freq = Statistics.frequenciesInterval
         let result = List<double>[Double.MinValue]
+        let mutable temp = 0
+        let mutable flg = true
         for i = 1 to Statistics.frequenciesInterval.Count - 1 do
-            if freq.[i] > 5 then
+            flg <- true
+            temp <- temp + freq.[i]
+            if temp >= 5 then
                 result.Add interval.[i]
+                flg <- false
+                temp <- 0
+        if flg then
+            result.[result.Count - 1] <- Double.MaxValue
+        else
+            result.Add Double.MaxValue
 
-        result.Add Double.MaxValue
         List.ofSeq result
     
     let frequenciesDiscreteExp =
@@ -39,12 +50,12 @@ module Hypothesis =
                      |> List.map (fun elem -> int elem)
                      |> List<int>
                      
-        result.[result.Count - 1] <- result.[result.Count - 1] + 1
+//        result.[result.Count - 1] <- result.[result.Count - 1] + 1
         List.ofSeq result
         
     let isShort =
        List.ofSeq Statistics.frequenciesDiscrete
-       |> List.tryFind (fun x -> x < 0)
+       |> List.tryFind (fun x -> x < 5)
     
     let frequenciesDiscreteDouble = List.ofSeq Statistics.frequenciesDiscrete |> List.map (fun elem -> double elem)
     
@@ -99,8 +110,8 @@ module Hypothesis =
         let max = List.map2 (fun elem1 elem2 -> abs (elem1 - elem2)) c1 c2 |> List.max |> double
         let k = max / sqrt (double Statistics.nNoGroup) |> funcK
         let bool =
-            if (k <= a) then "не " else ""
-        String.Format("Условие критерия Колмогорова {0} {1} < 3 ", bool + "выполняется", k)
+            if (k > a) then "" else "не "
+        String.Format("Условие критерия Колмогорова {0} {1} > {2} ", bool + "выполняется", k, a)
        
     let romanovsky =
         let f = if isShort.IsSome then freedomShort  else freedom
@@ -131,7 +142,7 @@ module Hypothesis =
         
         let bool =
             if (j > 3.0) then "не " else ""
-        String.Format("Условие критерия Ястремского {0} {1} <= 3 ", bool + "выполняется", j)
+        String.Format("Условие критерия Ястремского {0} {1} < 3 ", bool + "выполняется", j)
     
     let approximate a =
         let n = double Statistics.nNoGroup
