@@ -155,7 +155,7 @@ module Hypothesis =
         let chiCritical = ChiSquared.InvCDF(2.0, a) 
         
         let bool2 =
-            if bool1 && (chi < chiCritical) then "" else "не"
+            if bool1 && (chi < chiCritical) then "" else "не "
             
         String.Format("Условие приближенного критерия {0} {1} < {2} ", bool2 + "выполняется", chi, chiCritical)
 

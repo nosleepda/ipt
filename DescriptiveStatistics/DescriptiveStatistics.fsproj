@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Graphic2\Graphic2.fsproj" />
       <ProjectReference Include="..\GraphicLibrary\GraphicLibrary.csproj" />
     </ItemGroup>
 

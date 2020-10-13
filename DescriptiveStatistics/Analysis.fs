@@ -9,9 +9,13 @@ open MathNet.Numerics.LinearAlgebra.Double
 
 module Analysis =
     
-    let Xs = [300.0 .. 100.0 .. 1000.0]
+    let Xs =
+        [1.94; 2.68; 3.47; 4.12; 4.77; 5.34; 5.85; 6.65]
+//        [300.0 .. 100.0 .. 1000.0]
     
-    let Ys = [70.35; 75.38; 80.53; 85.81; 91.26; 96.83; 102.53; 108.27]
+    let Ys =
+        [0.82; 0.97; 1.06; 1.08; 1.1; 1.14; 1.21; 1.25]
+//        [70.35; 75.38; 80.53; 85.81; 91.26; 96.83; 102.53; 108.27]
     
     let n = Xs.Length |> float
     
@@ -65,7 +69,7 @@ module Analysis =
     let arth a =
         let l = Math.Atanh r - (norm a) / sqrt(n - 3.0) |> tanh
         let r = Math.Atanh r + (norm a) / sqrt(n - 3.0) |> tanh
-        (l,r)
+        String.Format("Значимость коэффициента корреляции {0} < r < {1} ", l, r)
     
     let emperYX =
         let r1 = [|n; List.sum Xs; List.sum Xs; List.sumBy (fun x -> x ** 2.0) Xs|]
@@ -93,11 +97,11 @@ module Analysis =
     
     let confidenceIntervalB =
         let Sb = S / (sX * sqrt n1)
-        (b - t 0.05 * Sb, b + t 0.05 * Sb)
+        String.Format("Доверительный интервал {0} < b < {1} ", b - t 0.05 * Sb, b + t 0.05 * Sb)
     
     let confidenceIntervalA =
         let Sa = S * sqrt (1.0 / n + meanX ** 2.0 / (n1 * sX ** 2.0))
-        (a - t 0.05 * Sa, a + t 0.05 * Sa)
+        String.Format("Доверительный интервал {0} < a < {1} ", a - t 0.05 * Sa, a + t 0.05 * Sa)
     
     let f x = a + b * x
         
@@ -106,16 +110,15 @@ module Analysis =
         List.map (fun y -> (y - meanY) ** 2.0) Ys |> List.sum |> (/) temp |> (-) 1.0
         
     let F a =
-        let r = R2 * n2 / (1.0 - R2)
-        let l = FisherSnedecor.InvCDF(1.0,n2,1.0 - a)
-        (r,l)
+        let l = R2 * n2 / (1.0 - R2)
+        let r = FisherSnedecor.InvCDF(1.0,n2,1.0 - a)
+        let bool = if l > r then "" else "не"
+        let bool2 = if l > r then ">" else "<"
+        String.Format("Адекватность уравнения: уравнение лин. регрессии статистически {0} значимо, \nт.к. {1} {2} {3} ", bool, l, bool2, r )
         
     let Ys2 = List.map (fun x -> f x) Xs
         
     let drawCorrelationField =
-        let graphs = Graphic("Correlation field", "X", "Y")
-        graphs.SetPlane(List.min Xs - 20.0, List.max Xs + 20.0, List.min Xs - 20.0, 100.0, List.min Ys - 10.0, List.max Ys + 10.0,List.min Ys - 10.0, 10.0)
-        graphs.AddGraph(List<float> Xs, List<float> Ys,"red")
-        graphs.AddGraph(List<float> Xs, List<float> Ys2,"green")
-        graphs.DrawGraph(false)
+        Graphic2.Plotly.draw2 Xs Ys Xs Ys2
+
         
