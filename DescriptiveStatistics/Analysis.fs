@@ -1,8 +1,6 @@
 ﻿namespace DescriptiveStatistics
 
 open System
-open System.Collections.Generic
-open GraphicLibrary
 open MathNet.Numerics.Distributions
 open MathNet.Numerics.LinearAlgebra
 open MathNet.Numerics.LinearAlgebra.Double
@@ -10,11 +8,13 @@ open MathNet.Numerics.LinearAlgebra.Double
 module Analysis =
     
     let Xs =
-        [1.94; 2.68; 3.47; 4.12; 4.77; 5.34; 5.85; 6.65]
+        [6.0 .. 1.0 .. 20.0]
+//        [1.94; 2.68; 3.47; 4.12; 4.77; 5.34; 5.85; 6.65]
 //        [300.0 .. 100.0 .. 1000.0]
     
     let Ys =
-        [0.82; 0.97; 1.06; 1.08; 1.1; 1.14; 1.21; 1.25]
+        [13.0; 16.0; 15.0; 20.0; 19.0; 21.0; 26.0; 24.0; 30.0; 32.0; 30.0; 35.0; 34.0; 40.0; 39.0]
+//        [0.82; 0.97; 1.06; 1.08; 1.1; 1.14; 1.21; 1.25]
 //        [70.35; 75.38; 80.53; 85.81; 91.26; 96.83; 102.53; 108.27]
     
     let n = Xs.Length |> float
@@ -59,7 +59,7 @@ module Analysis =
         r1 / (r2 * r3)
     
     let t a =
-        StudentT.InvCDF(0.0, 1.0, n2, 1.0 - a/2.0)
+        StudentT.InvCDF(0.0, 1.0, n2, 1.0 - a / 2.0)
     
     let tV =
         abs r / sqrt (1.0 - r ** 2.0) * sqrt n2

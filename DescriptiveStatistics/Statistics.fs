@@ -1,7 +1,6 @@
 ﻿namespace DescriptiveStatistics
 
 open System.Collections.Generic
-open GraphicLibrary
 open MathNet.Numerics.Distributions
 
 module Statistics =
@@ -10,25 +9,24 @@ module Statistics =
         let normalDist = Normal(mean, stdDev);
         normalDist.Sample()
         
-    //todo add init function
     let sourceData =
-//        List.init 1000 (fun _ -> rand 100.0 10.0) |> List<double>
-//        List<double>[28.0; 30.0; 28.0; 27.0; 28.0; 29.0; 29.0; 29.0; 31.0; 28.0; 26.0; 25.0; 33.0;
-//35.0; 27.0; 31.0; 31.0; 30.0; 28.0; 33.0; 23.0; 30.0; 31.0; 33.0; 31.0; 27.0;
-//30.0; 28.0; 30.0; 29.0; 30.0; 26.0; 25.0; 31.0; 33.0; 26.0; 27.0; 33.0; 29.0;
-//30.0; 30.0; 36.0; 26.0; 25.0; 28.0; 30.0; 29.0; 27.0; 32.0; 29.0; 31.0; 30.0;
-//31.0; 26.0; 25.0; 29.0; 31.0; 33.0; 27.0; 32.0; 30.0; 31.0; 34.0; 28.0; 26.0;
-//38.0; 29.0; 31.0; 29.0; 27.0; 31.0; 30.0; 28.0; 34.0; 30.0; 26.0; 30.0; 32.0;
-//30.0; 29.0; 30.0; 28.0; 32.0; 30.0; 29.0; 34.0; 32.0; 35.0; 29.0; 27.0; 28.0;
-//30.0; 30.0; 29.0; 32.0; 29.0; 34.0; 30.0; 32.0; 24.0;]
-        List<double>[21.0; 29.0; 27.0; 29.0; 27.0; 29.0; 31.0; 29.0; 31.0; 29.0; 29.0; 23.0; 39.0;
-31.0; 29.0; 31.0; 29.0; 31.0; 29.0; 31.0; 33.0; 31.0; 31.0; 31.0; 27.0; 23.0;
-27.0; 33.0; 29.0; 25.0; 29.0; 19.0; 29.0; 31.0; 23.0; 31.0; 29.0; 27.0; 33.0;
-29.0; 31.0; 29.0; 31.0; 23.0; 35.0; 27.0; 29.0; 29.0; 27.0; 29.0; 29.0; 21.0;
-29.0; 27.0; 29.0; 29.0; 29.0; 33.0; 29.0; 25.0; 25.0; 27.0; 31.0; 29.0; 29.0;
-27.0; 33.0; 29.0; 31.0; 29.0; 29.0; 29.0; 35.0; 27.0; 29.0; 35.0; 29.0; 33.0;
-29.0; 27.0; 31.0; 31.0; 27.0; 29.0; 35.0; 27.0; 33.0; 29.0; 27.0; 29.0; 25.0;
-27.0; 31.0; 37.0; 25.0; 31.0; 27.0; 27.0; 29.0; 25.0;]
+//        List.init 300000 (fun _ -> rand 100.0 10.0) |> List<double>
+        [|28.0; 30.0; 28.0; 27.0; 28.0; 29.0; 29.0; 29.0; 31.0; 28.0; 26.0; 25.0; 33.0;
+ 35.0; 27.0; 31.0; 31.0; 30.0; 28.0; 33.0; 23.0; 30.0; 31.0; 33.0; 31.0; 27.0;
+ 30.0; 28.0; 30.0; 29.0; 30.0; 26.0; 25.0; 31.0; 33.0; 26.0; 27.0; 33.0; 29.0;
+ 30.0; 30.0; 36.0; 26.0; 25.0; 28.0; 30.0; 29.0; 27.0; 32.0; 29.0; 31.0; 30.0;
+ 31.0; 26.0; 25.0; 29.0; 31.0; 33.0; 27.0; 32.0; 30.0; 31.0; 34.0; 28.0; 26.0;
+ 38.0; 29.0; 31.0; 29.0; 27.0; 31.0; 30.0; 28.0; 34.0; 30.0; 26.0; 30.0; 32.0;
+ 30.0; 29.0; 30.0; 28.0; 32.0; 30.0; 29.0; 34.0; 32.0; 35.0; 29.0; 27.0; 28.0;
+ 30.0; 30.0; 29.0; 32.0; 29.0; 34.0; 30.0; 32.0; 24.0;|]
+//        List<double>[21.0; 29.0; 27.0; 29.0; 27.0; 29.0; 31.0; 29.0; 31.0; 29.0; 29.0; 23.0; 39.0;
+//31.0; 29.0; 31.0; 29.0; 31.0; 29.0; 31.0; 33.0; 31.0; 31.0; 31.0; 27.0; 23.0;
+//27.0; 33.0; 29.0; 25.0; 29.0; 19.0; 29.0; 31.0; 23.0; 31.0; 29.0; 27.0; 33.0;
+//29.0; 31.0; 29.0; 31.0; 23.0; 35.0; 27.0; 29.0; 29.0; 27.0; 29.0; 29.0; 21.0;
+//29.0; 27.0; 29.0; 29.0; 29.0; 33.0; 29.0; 25.0; 25.0; 27.0; 31.0; 29.0; 29.0;
+//27.0; 33.0; 29.0; 31.0; 29.0; 29.0; 29.0; 35.0; 27.0; 29.0; 35.0; 29.0; 33.0;
+//29.0; 27.0; 31.0; 31.0; 27.0; 29.0; 35.0; 27.0; 33.0; 29.0; 27.0; 29.0; 25.0;
+//27.0; 31.0; 37.0; 25.0; 31.0; 27.0; 27.0; 29.0; 25.0;]
 //        List<double>[0.90;0.79;0.84;0.86;0.88;0.90;0.89;0.85;0.91;0.98;0.91;0.80;0.87;
 //0.89;0.88;0.78;0.81;0.85;0.88;0.94;0.86;0.80;0.86;0.91;0.78;0.86;
 //0.91;0.95;0.97;0.88;0.79;0.82;0.84;0.90;0.81;0.87;0.91;0.90;0.82;
@@ -56,8 +54,8 @@ module Statistics =
     let lastElem = List.max sortedData + 0.5 * h
 
     let interval =
-        let arr = ResizeArray<double>(int kRounded + 1)
-        let mutable temp = initElem;
+        let arr = List<double>(int kRounded + 1)
+        let mutable temp = initElem
         arr.Add temp
         for i = 1 to int kRounded do
             temp <- temp + h
@@ -82,20 +80,18 @@ module Statistics =
         frequencies2
 
     let frequenciesDiscrete =
-        frequenciesInterval |> List.ofSeq |> List.tail |> List<int>
-        
-    let nGroup = discrete.Length
+        frequenciesInterval.GetRange(1, frequenciesInterval.Count - 1)
 
-    let nNoGroup = sortedData.Length
+    let n = sortedData.Length
 
-    let dictDa =
+    let dictData =
         Seq.map2 (fun d f -> d, f) discrete frequenciesDiscrete
         |> dict
 
     let mode: double =
-        let max = dictDa.Values |> List.ofSeq |> List.max
+        let max = dictData.Values |> List.ofSeq |> List.max
         let mutable key = 0.0
-        for x in dictDa do
+        for x in dictData do
             if max = x.Value then key <- x.Key
         key
 
@@ -111,17 +107,17 @@ module Statistics =
 
     let mean =
         let mutable sum = 0.0
-        for x in dictDa do
+        for x in dictData do
             sum <- sum + x.Key * double x.Value
 
-        sum / double nNoGroup
+        sum / double n
 
     let variance =
         let mutable sum = 0.0
-        for x in dictDa do
+        for x in dictData do
             sum <- sum + ((mean - x.Key) ** 2.0) * (double x.Value)
 
-        sum <- sum / double (if nNoGroup > 50 then nNoGroup - 1 else nNoGroup)
+        sum <- sum / double (if n > 50 then n - 1 else n)
         sum
 
     let standardDeviation = sqrt variance
@@ -131,79 +127,59 @@ module Statistics =
 
     let m3 =
         let mutable sum = 0.0
-        for x in dictDa do
+        for x in dictData do
             sum <- sum + ((x.Key - mean) ** 3.0) * (double x.Value)
             
-        sum <- sum / double nNoGroup
+        sum <- sum / double n
         sum
         
-
     let skewness =
         m3 / (standardDeviation ** 3.0)
 
     let m4 =
         let mutable sum = 0.0
-        for x in dictDa do
+        for x in dictData do
             sum <- sum + (double (double x.Key - double mean) ** 4.0) * (double x.Value)
 
-        sum <- sum / double nNoGroup
+        sum <- sum / double n
         sum
 
     let kurtosis =
         m4 / (standardDeviation ** 4.0) - 3.0
         
     let t y =
-        StudentT.InvCDF(0.0, 1.0, nNoGroup - 1 |> double, 1.0 - y/2.0)
+        StudentT.InvCDF(0.0, 1.0, n - 1 |> double, 1.0 - y / 2.0)
     
     let confidenceIntervalMean y =
-        let temp = t y * standardDeviation / (sqrt (double nNoGroup))
+        let temp = t y * standardDeviation / (sqrt (double n))
         (mean - temp, mean + temp)
 
-    let chi y =
-        ChiSquared.InvCDF(nNoGroup - 1 |> double, y/2.0)
+    let chi a =
+        ChiSquared.InvCDF(n - 1 |> double, a / 2.0)
     
     let confidenceIntervalVariance y =
-        let temp = variance * (double nNoGroup - 1.0) 
+        let temp = variance * (double n - 1.0) 
         (sqrt (temp / chi (1.0 + y)), sqrt(temp / chi (1.0 - y)))
     
     let emper x =
         let mutable sum = 0
-        for elem in dictDa do
+        for elem in dictData do
             sum <- sum + (if elem.Key < x then elem.Value else 0)
-        sum / nNoGroup
+        sum / n
 
     let ws =
         frequenciesDiscrete
         |> List.ofSeq
-        |> List.map (fun x -> double x / double nNoGroup)
+        |> List.map (fun x -> double x / double n)
 
-    let WSS =
+    let cumulate =
         let da = List<float>(ws.Length)
         da.Add ws.Head
         for x = 1 to ws.Length - 1 do
             da.Add(da.[x - 1] + ws.[x])
         da
-
-    let drawFrequencyPolygon =
-        let graphs = Graphic("Frequency Polygons", "", "")
-        graphs.SetPlane(0, frequenciesDiscrete.Count + 1, 0, 2, 0, (frequenciesDiscrete |> Seq.max |> int) + 2, 0, 4)
-        graphs.DrawFrequencyPolygon(frequenciesDiscrete |> Array.ofSeq, true, "green")
-        0
-
-    let drawHistogram =
-        let graphs = Graphic("Histogram", "", "")
-        graphs.SetPlane(0, frequenciesDiscrete.Count + 1, 0, 2, 0, (frequenciesDiscrete |> Seq.max |> int) + 2, 0, 4)
-        graphs.DrawBarsGraph(frequenciesDiscrete |> Array.ofSeq)
-        0
-
-    let drawFrequencyPolygon2 =
-        let graphs = Graphic("Frequency Polygons", "", "")
-        graphs.SetPlane(0, ws.Length + 1, 0, 2, 0, (ws |> Seq.max |> int) + 2, 0, 4)
-        graphs.DrawFrequencyPolygon(WSS |> Array.ofSeq)
-        0
-
-    let drawHistograms =
-        let graphs = Graphic("Histogram", "", "")
-        graphs.SetPlane(0.0, double(ws.Length + 1), 0.0, 1.3, 0.0, 2.0, 0.0, 0.3)
-        graphs.DrawBarsGraph(WSS |> Array.ofSeq)
-        0
+    
+    let draw =
+        Graphic2.Plotly.drawHistogram discrete frequenciesDiscrete
+        Graphic2.Plotly.drawDistributionFunction cumulate
+        
