@@ -85,9 +85,9 @@ module Hypothesis =
         let chiSquaredCritical = ChiSquared.InvCDF(f, a) 
         
         let bool =
-            if (cs >= chiSquaredCritical) then "не " else ""
-            
-        String.Format("Условие критерия Пирсона {0} {1} < {2} ", bool + "выполняется", cs, chiSquaredCritical)
+            if cs < chiSquaredCritical then "" else "не "
+        let bool2 = if cs < chiSquaredCritical then "<" else ">="
+        String.Format("Условие критерия Пирсона {0}выполняется {1} {2} {3} ", bool, cs, bool2, chiSquaredCritical)
     
     let kolmogorov a =
         let cumulative (list:list<int>) =
@@ -108,7 +108,8 @@ module Hypothesis =
         let k = max / sqrt (double Statistics.n) |> funcK
         let bool =
             if (k > a) then "" else "не "
-        String.Format("Условие критерия Колмогорова {0} {1} > {2} ", bool + "выполняется", k, a)
+        let bool2 = if k > a then ">" else "<="
+        String.Format("Условие критерия Колмогорова {0}выполняется {1} {2} {3}", bool, k, bool2, a)
        
     let romanovsky =
         let f = if isShort.IsSome then freedomShort  else freedom
@@ -116,8 +117,9 @@ module Hypothesis =
         
         let r = abs (cs - f) / sqrt (2.0 * f)
         let bool =
-            if (r > 3.0) then "не " else ""
-        String.Format("Условие критерия Романовского {0} {1} < 3 ", bool + "выполняется", r)
+            if r < 3.0 then "" else "не "
+        let bool2 = if r < 3.0 then "<" else ">="
+        String.Format("Условие критерия Романовского {0}выполняется {1} {2} 3 ", bool, r, bool2)
         
     let yastremsky =
         let cs = List.map (fun elem -> elem * double Statistics.n) ps
@@ -138,8 +140,10 @@ module Hypothesis =
         let j = abs (c - double k) / sqrt (2.0 * double k + 4.0 * t)
         
         let bool =
-            if (j > 3.0) then "не " else ""
-        String.Format("Условие критерия Ястремского {0} {1} < 3 ", bool + "выполняется", j)
+            if (j <= 3.0) then "" else "не "
+            
+        let bool2 = if j <= 3.0 then "<=" else ">"    
+        String.Format("Условие критерия Ястремского {0}выполняется {1} {2} 3 ", bool, j, bool2)
     
     let approximate a =
         let n = double Statistics.n
@@ -154,7 +158,9 @@ module Hypothesis =
         let bool2 =
             if bool1 && (chi < chiCritical) then "" else "не "
             
-        String.Format("Условие приближенного критерия {0} {1} < {2} ", bool2 + "выполняется", chi, chiCritical)
+        let bool3 = if bool1 && (chi < chiCritical) then "<" else ">="
+       
+        String.Format("Условие приближенного критерия {0}выполняется {1} {2} {3} ", bool2, chi, bool3, chiCritical)
 
     let draw =
         Graphic2.Plotly.draw22 Statistics.frequenciesDiscrete frequenciesDiscreteExp
