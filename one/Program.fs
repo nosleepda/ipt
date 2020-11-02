@@ -7,12 +7,42 @@ open MathNet.Numerics.Distributions
 [<EntryPoint>]
 let main argv =
     
-    AnalysisTable.nyws |> List.iter (printf "%1.4A ")
+//    NonlinearDependencies.interpol ||> List.iter2 (printf " %f %f \n")
+//    NonlinearDependencies.fxs |> List.iter (printf " %f \n")
+    NonlinearDependencies.xfs |> List.iter (printf " %1.2f")
+    printfn ""
+    NonlinearDependencies.yfs |> List.iter (printf " %1.2f")
+    printfn ""
     
-    AnalysisTable.confidenceIntervalA |> printfn "\n  %A"
-    FisherSnedecor.InvCDF(3.0,25.0,0.95) |> printfn "\n  %A"
-    AnalysisTable.a |> printfn "\n  %A"
-    StudentT.InvCDF(0.0, 1.0, 28.0, 1.0 - 0.05 / 2.0) |> printfn "\n  %A"
+    NonlinearDependencies.my |> (printfn "mean y =  %f ")
+    NonlinearDependencies.mx |> (printfn "mean x =  %f ")
+    NonlinearDependencies.sy |> (printfn "sy =  %f ")
+    NonlinearDependencies.sx |> (printfn "sx = %f ")
+    NonlinearDependencies.i |> (printfn "i = %f ")
+    NonlinearDependencies.funcRegressionPrint |> ignore
+    NonlinearDependencies.R2 |> (printfn  "R2 = %f ")
+    NonlinearDependencies.F 0.05 |> (printfn "%s")
+    
+//    AnalysisTable.confidenceIntervalA |> printfn "\n  %A"
+//    AnalysisTable.confidenceIntervalB |> printfn "\n  %A"
+//    AnalysisTable.my |> printfn "\n my %A"
+//    AnalysisTable.mx |> printfn "\n mx %A"
+//    AnalysisTable.sx |> printfn "\n sx %A"
+//    AnalysisTable.sy |> printfn "\n  sy %A"
+//    AnalysisTable.r |> printfn "\n r  %A"
+//    AnalysisTable.t |> printfn "\n t vib  %A"
+//    StudentT.InvCDF(0.0, 1.0, 28.0, 1.0 - 0.05 / 2.0) |> printfn "\n t krit  %A"
+//
+//    AnalysisTable.p 0.05 |> printfn "\n значимость r %A"
+//    AnalysisTable.R2 |> printfn "\n R2  %A"
+//    AnalysisTable.f  |> printfn "\n f vib %A"
+//    FisherSnedecor.InvCDF(3.0,25.0,0.95) |> printfn "\n d krit %A"
+//    AnalysisTable.a |> printfn "\n a  %A"
+//    AnalysisTable.b |> printfn "\n b %A"
+//    
+//    AnalysisTable.draw
+    
+    
 //    Statistics.median |> printfn "median %f"
 //    Statistics.skewness |> printfn "skewness %f"
 //    Statistics.kurtosis|> printfn "kurtosis %f"

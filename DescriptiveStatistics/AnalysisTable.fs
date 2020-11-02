@@ -7,15 +7,25 @@ open MathNet.Numerics.LinearAlgebra.Double
 
 module AnalysisTable =
     
-    let xTitle = [5.0 .. 5.0 .. 25.0]
+    let xTitle =
+        [15.0 .. 5.0 .. 40.0]
+//        [5.0 .. 5.0 .. 25.0]
    
-    let yTitle = [10.0 .. 13.0]
+    let yTitle =
+        [30.0 .. 10.0 .. 70.0]
+//        [10.0 .. 13.0]
     
-    let ns = [[0.0; 0.0; 0.0; 1.0; 4.0]
-              [0.0; 3.0; 6.0; 4.0; 1.0]
-              [1.0; 3.0; 2.0; 0.0; 1.0]
-              [3.0; 0.0; 1.0; 0.0; 0.0]]
+//    let ns = [[0.0; 0.0; 0.0; 1.0; 4.0]
+//              [0.0; 3.0; 6.0; 4.0; 1.0]
+//              [1.0; 3.0; 2.0; 0.0; 1.0]
+//              [3.0; 0.0; 1.0; 0.0; 0.0]]
 
+    let ns =
+        [[3.0; 3.0; 0.0; 0.0; 0.0; 0.0;]
+         [0.0; 5.0; 4.0; 0.0; 0.0; 0.0;]
+         [0.0; 0.0; 8.0; 40.0; 2.0; 0.0;]
+         [0.0; 0.0;5.0; 10.0; 6.0; 0.0;]
+         [0.0; 0.0; 0.0; 4.0; 7.0; 3.0]]
     let nsArr = array2D ns
 
     let matrix = DenseMatrix.OfArray nsArr
@@ -154,3 +164,6 @@ module AnalysisTable =
     let confidenceIntervalA =
         let Sa = S * sqrt (1.0 / n + mx ** 2.0 / (n1 * sx ** 2.0))
         String.Format("Доверительный интервал {0} < a < {1}", a - st 0.05 * Sa, a + st 0.05 * Sa)
+        
+    let draw =
+        Graphic2.Plotly.draw2 xTitle nyws xTitle fxs

@@ -9,6 +9,7 @@
         <Compile Include="Hypothesis.fs" />
         <Compile Include="Analysis.fs" />
         <Compile Include="AnalysisTable.fs" />
+        <Compile Include="NonlinearDependencies.fs" />
     </ItemGroup>
 
     <ItemGroup>

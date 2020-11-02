@@ -6,6 +6,22 @@ module Plotly =
     
     let draw r1 r2 = Scatter (x = r1, y = r2) |> Chart.Plot |> Chart.WithWidth 700 |> Chart.WithHeight 500 |> Chart.Show
     
+    let draw2LineAndMark x y x1 y1 =
+        [Scatter (x = x, y = y)
+         Scatter (x = x1, y = y1, mode = "markers")]
+        |> Chart.Plot
+        |> Chart.WithWidth 700
+        |> Chart.WithHeight 500
+        |> Chart.Show
+    
+    let draw2Resize r1 r2 r3 r4 w h =
+        [Scatter (x = r1, y = r2)
+         Scatter (x = r3, y = r4)]
+        |> Chart.Plot
+        |> Chart.WithWidth w
+        |> Chart.WithHeight h
+        |> Chart.Show
+    
     let draw2 r1 r2 r3 r4 =
         [Scatter (x = r1, y = r2, line = Line(shape = "spline", smoothing = 1.0))
          Scatter (x = r3, y = r4, line = Line(shape = "spline", smoothing = 1.0))]
