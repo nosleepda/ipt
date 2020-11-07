@@ -193,7 +193,7 @@ module NonlinearDependencies =
         match numberOfFunc with
         | 0 -> printfn "y = %f * x ^ %f" coeffAB.[0] coeffAB.[1]
         | 1 -> printfn "y = %f * %f ^ x" coeffAB.[0] coeffAB.[1]
-        | 2 -> printfn "y = 1 / (%f + %f * x" coeffAB.[0] coeffAB.[1]
+        | 2 -> printfn "y = 1 / (%f + %f * x)" coeffAB.[0] coeffAB.[1]
         | 3 -> printfn "y = %f + %f * lgx" coeffAB.[0] coeffAB.[1]
         | 4 -> printfn "y = %f + %f / x" coeffAB.[0] coeffAB.[1]
         | 5 -> printfn "y = %f * x / (%f + x)" coeffAB.[0] coeffAB.[1]

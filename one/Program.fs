@@ -7,21 +7,36 @@ open MathNet.Numerics.Distributions
 [<EntryPoint>]
 let main argv =
     
+    NonlinearDependenciesTable.mx |> (printfn "mean x %1.2A")
+    NonlinearDependenciesTable.my |> (printfn "mean y %1.2A")
+    NonlinearDependenciesTable.sx |> (printfn "sx %1.2A")
+    NonlinearDependenciesTable.sy |> (printfn "sy %1.2A")
+    NonlinearDependenciesTable.nu |> (printfn "Nu %1.2A")
+    NonlinearDependenciesTable.R2 |> (printfn "R2 %1.2A")
+    NonlinearDependenciesTable.F 0.05 |> (printfn " %1.2A")
+    
 //    NonlinearDependencies.interpol ||> List.iter2 (printf " %f %f \n")
 //    NonlinearDependencies.fxs |> List.iter (printf " %f \n")
-    NonlinearDependencies.xfs |> List.iter (printf " %1.2f")
-    printfn ""
-    NonlinearDependencies.yfs |> List.iter (printf " %1.2f")
-    printfn ""
+//    NonlinearDependencies.xfs |> List.iter (printf " %1.2f")
+//    printfn ""
+//    NonlinearDependencies.yfs |> List.iter (printf " %1.2f")
+//    printfn ""
+//    
+//    NonlinearDependencies.my |> (printfn "mean y =  %f ")
+//    NonlinearDependencies.mx |> (printfn "mean x =  %f ")
+//    NonlinearDependencies.sy |> (printfn "sy =  %f ")
+//    NonlinearDependencies.sx |> (printfn "sx = %f ")
+//    NonlinearDependencies.i |> (printfn "i = %f ")
+//    NonlinearDependencies.funcRegressionPrint |> ignore
+//    NonlinearDependencies.R2 |> (printfn  "R2 = %f ")
+//    NonlinearDependencies.F 0.05 |> (printfn "%s")
     
-    NonlinearDependencies.my |> (printfn "mean y =  %f ")
-    NonlinearDependencies.mx |> (printfn "mean x =  %f ")
-    NonlinearDependencies.sy |> (printfn "sy =  %f ")
-    NonlinearDependencies.sx |> (printfn "sx = %f ")
-    NonlinearDependencies.i |> (printfn "i = %f ")
-    NonlinearDependencies.funcRegressionPrint |> ignore
-    NonlinearDependencies.R2 |> (printfn  "R2 = %f ")
-    NonlinearDependencies.F 0.05 |> (printfn "%s")
+//    AnalysisTable.nyws |> List.iter (printf " %1.2f")
+//    NonlinearDependenciesTable.numberOfFunc |> List.iter (printf " %1.2f")
+
+
+//    NonlinearDependenciesTable.funcRegressionPrint// |> (printf " %A")
+
     
 //    AnalysisTable.confidenceIntervalA |> printfn "\n  %A"
 //    AnalysisTable.confidenceIntervalB |> printfn "\n  %A"
@@ -39,6 +54,7 @@ let main argv =
 //    FisherSnedecor.InvCDF(3.0,25.0,0.95) |> printfn "\n d krit %A"
 //    AnalysisTable.a |> printfn "\n a  %A"
 //    AnalysisTable.b |> printfn "\n b %A"
+//    AnalysisTable.nyws |> List.iter (printf " %1.4f ")
 //    
 //    AnalysisTable.draw
     
