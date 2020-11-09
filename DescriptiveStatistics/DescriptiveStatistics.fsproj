@@ -11,6 +11,7 @@
         <Compile Include="AnalysisTable.fs" />
         <Compile Include="NonlinearDependencies.fs" />
         <Compile Include="NonlinearDependenciesTable.fs" />
+        <Compile Include="MultipleRegression.fs" />
     </ItemGroup>
 
     <ItemGroup>

@@ -7,13 +7,17 @@ open MathNet.Numerics.Distributions
 [<EntryPoint>]
 let main argv =
     
-    NonlinearDependenciesTable.mx |> (printfn "mean x %1.2A")
-    NonlinearDependenciesTable.my |> (printfn "mean y %1.2A")
-    NonlinearDependenciesTable.sx |> (printfn "sx %1.2A")
-    NonlinearDependenciesTable.sy |> (printfn "sy %1.2A")
-    NonlinearDependenciesTable.nu |> (printfn "Nu %1.2A")
-    NonlinearDependenciesTable.R2 |> (printfn "R2 %1.2A")
-    NonlinearDependenciesTable.F 0.05 |> (printfn " %1.2A")
+//    MultipleRegression.dadada |> List.iter (printfn "%1.6A")
+    
+    MultipleRegression.dadada |> (printfn "%1.2A")
+    
+//    NonlinearDependenciesTable.mx |> (printfn "mean x %1.2A")
+//    NonlinearDependenciesTable.my |> (printfn "mean y %1.2A")
+//    NonlinearDependenciesTable.sx |> (printfn "sx %1.2A")
+//    NonlinearDependenciesTable.sy |> (printfn "sy %1.2A")
+//    NonlinearDependenciesTable.nu |> (printfn "Nu %1.2A")
+//    NonlinearDependenciesTable.R2 |> (printfn "R2 %1.2A")
+//    NonlinearDependenciesTable.F 0.05 |> (printfn " %1.2A")
     
 //    NonlinearDependencies.interpol ||> List.iter2 (printf " %f %f \n")
 //    NonlinearDependencies.fxs |> List.iter (printf " %f \n")
