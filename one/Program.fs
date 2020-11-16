@@ -7,9 +7,57 @@ open MathNet.Numerics.Distributions
 [<EntryPoint>]
 let main argv =
     
-//    MultipleRegression.dadada |> List.iter (printfn "%1.6A")
+//    printfn "Спирмен: "
+//    RankCorrelation.pb |> (printfn "pb = %2.4f")
+//    RankCorrelation.t 0.05 |> (printfn "%s")
+////    printfn "Кендалл: "
+////    RankCorrelation.tb |> (printfn "tb = %2.4f")
+////    RankCorrelation.da 0.05 |> (printfn "%s")
+//    RankCorrelation.d |> (printfn "d = %2.4f")
+//    RankCorrelation.R |> (printfn "R = %2.4f")
+    RankCorrelation.xRank2 |> List.iter  (printf "%2i ")
+    printfn ""
+    RankCorrelation.xRank |> List.iter  (printf "%2.0f ")
+    printfn ""
     
-    MultipleRegression.dadada |> (printfn "%1.2A")
+    RankCorrelation.x |> List.iter  (printf "%2.0f ")
+    printfn ""
+    RankCorrelation.yRank |> List.iter  (printf "%2i ")
+    printfn ""
+    RankCorrelation.y |> List.iter  (printf "%2.0f ")
+    
+//    RankCorrelation.xRank.Length |> printfn "%i"
+//    [46.0; 76.0; 53.0; 98.0; 61.0; 78.0; 49.0; 72.0; 53.0; 53.0; 52.0]
+//    |> List.sortDescending
+//    |> printfn "%11A"
+    
+    
+    
+//    MultipleRegression.xst |> List.iteri (fun i xt -> printfn "x%it = %2.4f" (i + 1)  xt)
+//    MultipleRegression.student 0.05 |> printfn "tCrit = %2.4f"
+//    printfn ""
+//    MultipleRegression.rxx.[0] |> (printfn "rx%ix%i = %2.4f") 1 2
+//    MultipleRegression.rxx.[1] |> (printfn "rx%ix%i = %2.4f") 1 3
+//    MultipleRegression.rxx.[2] |> (printfn "rx%ix%i = %2.4f") 2 3
+//    printfn ""
+//    MultipleRegression.ryxs |> List.iteri (fun i x -> printfn "ryx%i = %2.4f" (i + 1)  x)
+//    let index1 = MultipleRegression.includedFactors.[0] + 1
+//    let index2 = MultipleRegression.includedFactors.[1] + 1
+//    index1 |> printf "y = a1 * x%i + "
+//    index2|> printfn "a2 * x%i + b"
+//    MultipleRegression.Ryxx |> printfn "Ry/xx = %2.4f"
+//    MultipleRegression.Ryxx' |> printfn "Ry/xx' = %2.4f"
+//    MultipleRegression.t 0.05 |> printfn "%s"
+//    MultipleRegression.coef.[0] |> printf "y = x%i * %2.4f + " index1
+//    MultipleRegression.coef.[1] |> printf "x%i * %2.4f + " index2
+//    MultipleRegression.coef.[2] |> printfn "%2.4f"
+//    MultipleRegression.F 0.05 |> printfn "%s"
+//    MultipleRegression.R |> printfn "R = %2.4f"
+//    MultipleRegression.error |> printfn "Error = %2.4f"
+//    MultipleRegression.K.[0] |> printfn "K%i = %2.4f " index1 
+//    MultipleRegression.K.[1] |> printfn "K%i = %2.4f " index2 
+//    MultipleRegression.draw 
+    
     
 //    NonlinearDependenciesTable.mx |> (printfn "mean x %1.2A")
 //    NonlinearDependenciesTable.my |> (printfn "mean y %1.2A")

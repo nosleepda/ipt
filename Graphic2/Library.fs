@@ -5,6 +5,13 @@ open XPlot.Plotly
 module Plotly =
     
     let draw r1 r2 = Scatter (x = r1, y = r2) |> Chart.Plot |> Chart.WithWidth 700 |> Chart.WithHeight 500 |> Chart.Show
+    let drawMark r1 r2 title =
+        Scatter (x = r1, y = r2,  mode = "markers")
+        |> Chart.Plot
+        |> Chart.WithWidth 700
+        |> Chart.WithHeight 500
+        |> Chart.WithTitle title
+        |> Chart.Show
     
     let draw2LineAndMark x y x1 y1 =
         [Scatter (x = x, y = y)
