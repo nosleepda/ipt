@@ -7,30 +7,25 @@ open MathNet.Numerics.Distributions
 [<EntryPoint>]
 let main argv =
     
-//    printfn "Спирмен: "
-//    RankCorrelation.pb |> (printfn "pb = %2.4f")
-//    RankCorrelation.t 0.05 |> (printfn "%s")
-////    printfn "Кендалл: "
-////    RankCorrelation.tb |> (printfn "tb = %2.4f")
-////    RankCorrelation.da 0.05 |> (printfn "%s")
-//    RankCorrelation.d |> (printfn "d = %2.4f")
-//    RankCorrelation.R |> (printfn "R = %2.4f")
-    RankCorrelation.xRank2 |> List.iter  (printf "%2i ")
-    printfn ""
-    RankCorrelation.xRank |> List.iter  (printf "%2.0f ")
-    printfn ""
+    printfn "Спирмен: "
+    RankCorrelation.pb |> (printfn "pb = %2.4f")
+    RankCorrelation.t 0.05 |> (printfn "%s")
+    printfn "Кендалл: "
+    RankCorrelation.tb |> (printfn "tb = %2.4f")
+    RankCorrelation.da 0.05 |> (printfn "%s")
     
-    RankCorrelation.x |> List.iter  (printf "%2.0f ")
-    printfn ""
-    RankCorrelation.yRank |> List.iter  (printf "%2i ")
-    printfn ""
-    RankCorrelation.y |> List.iter  (printf "%2.0f ")
-    
-//    RankCorrelation.xRank.Length |> printfn "%i"
-//    [46.0; 76.0; 53.0; 98.0; 61.0; 78.0; 49.0; 72.0; 53.0; 53.0; 52.0]
-//    |> List.sortDescending
-//    |> printfn "%11A"
-    
+//    RankCorrelation.x |> List.sortDescending |> List.iter (printf "%1.0f ")
+//    printfn ""
+//    RankCorrelation.x1 |> Seq.sortByDescending (fun (KeyValue(k,v)) -> v) |> Seq.iter (printf "%A ")
+//    printfn ""
+//    RankCorrelation.xRank |> List.iter (printf "%i ")
+//    RankCorrelation.y |> List.sortDescending |> List.iter (printf "%1.0f ")
+//    printfn ""
+//    RankCorrelation.y1 |> Seq.sortByDescending (fun (KeyValue(k,v)) -> v) |> Seq.iter (printf "%A ")
+//    printfn ""
+//    RankCorrelation.yRank |> List.iter (printf "%i ")
+//    printfn ""
+//    RankCorrelation.R |> printf "%2.4f "
     
     
 //    MultipleRegression.xst |> List.iteri (fun i xt -> printfn "x%it = %2.4f" (i + 1)  xt)
